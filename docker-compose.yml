@@ -11,6 +11,13 @@ services:
       POSTGRES_DB: NA
     ports:
       - "5432:5432"
+  flask_app:
+    build: .
+    command: python app.py
+    ports:
+      - "5000:5000"
+    depends_on:
+      - db
 
   # adminer:
   #   image: adminer
