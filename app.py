@@ -21,7 +21,7 @@ db.init_app(app)
 def database():
     """ get the number of connections to the database """
     # create a connection to the database
-    conn = create_connection()
+    conn = create_connection(docker=True)
     with conn.cursor() as cur:
         cur.execute("SELECT * FROM kubernetes WHERE kobj='pod';")
         row = cur.fetchone()

@@ -3,10 +3,15 @@
 import psycopg2
 import os
 
-def create_connection():
+def create_connection(docker=False):
+    if docker:
+        # container name from docker-compose.yml
+        host = "postgres_db"
+    else:
+        host = "localhost"
     # create connection to connect to database
     connection = psycopg2.connect(
-        host = "localhost",
+        host = host,
         database = os.environ.get('DATABASE_NAME'),
         user = os.environ.get('DATABASE_USER'),
         password = os.environ.get('DATABASE_PASSWORD')
@@ -17,8 +22,8 @@ def open_cursor():
     conn=create_connection()
     # open a cursor to perform database operations
     cur = conn.cursor()
-    # cur.execute("SHOW max_connections")
-    # print(cur.fetchone())
+    cur.execute("SHOW max_connections")
+    print(cur.fetchone())
     return cur
 
 def close_cursor(cursor_name, connection_name):
