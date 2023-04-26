@@ -10,6 +10,7 @@ def create_connection(docker=False):
     else:
         host = "localhost"
     # create connection to connect to database
+    print(f"Connecting to database...{host}")
     connection = psycopg2.connect(
         host = host,
         database = os.environ.get('DATABASE_NAME'),
