@@ -30,3 +30,8 @@ docker-compose -f docker-compose.yml up --remove-orphans
 # populate database with test data
 ./create_db.py 
 ```
+* Bunyshell sutff:
+
+- [env_definition](https://documentation.bunnyshell.com/docs/environment-definition)
+
+- [env_deployment](https://documentation.bunnyshell.com/docs/quickstart-dockercompose-deploy-the-environment)
