@@ -35,3 +35,5 @@ docker-compose -f docker-compose.yml up --remove-orphans
 - [env_definition](https://documentation.bunnyshell.com/docs/environment-definition)
 
 - [env_deployment](https://documentation.bunnyshell.com/docs/quickstart-dockercompose-deploy-the-environment)
+
+- [docker compose documentation](https://documentation.bunnyshell.com/docs/components-docker-compose)
