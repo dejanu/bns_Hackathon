@@ -32,10 +32,11 @@ def close_cursor(cursor_name, connection_name):
     cursor_name.close()
     connection_name.close()
 
-def run_script(script_name):
+def run_script(script_name, conn):
     with open (script_name, "r") as script_file:
         sql_script = script_file.read()
-    conn = create_connection()
+    if not conn:
+        conn = create_connection()
     with conn.cursor() as cur:
         cur.execute(sql_script)
         conn.commit()

@@ -3,8 +3,7 @@ import os
 from flask import Flask, render_template, request
 from flask_sqlalchemy import SQLAlchemy
 
-from db_stuff.create_db import create_connection, open_cursor, close_cursor
-
+from db_stuff.create_db import create_connection, open_cursor, close_cursor, run_script
 
 app = Flask(__name__)
 app.config["DEBUG"] = True
@@ -21,6 +20,8 @@ db.init_app(app)
 def database():
     """ get the number of connections to the database """
     # create a connection to the database
+    conn = create_connection(docker=True)
+    run_script('db_stuff/create_table.sql', conn)
     conn = create_connection(docker=True)
     with conn.cursor() as cur:
         cur.execute("SELECT * FROM kubernetes WHERE kobj='pod';")
