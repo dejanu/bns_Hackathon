@@ -9,13 +9,9 @@
 <body>
     <hr>
     <div class="container text-center">
-    <h1>Search for Kubernete object</h1>
-    <form action="/submit" method="post">
-        <label>k8s obj:</label>
-        <input type="text" name="name"><br>
-
-        <input type="submit" value="Submit">
-    </form>
+    <h1>Definition</h1>
+    <!-- return definition from row var in app.py -->
+    <p>Object definition and usage: {{ row }}</p>
     </div>
 </body>
 </html>

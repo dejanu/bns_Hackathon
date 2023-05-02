@@ -18,18 +18,22 @@ db.init_app(app)
 # create a new route named database
 @app.route('/database')
 def database():
-    """ get the number of connections to the database """
+    """ create table in the database """
     # create a connection to the database
     conn = create_connection(docker=True)
     run_script('db_stuff/create_table.sql', conn)
+    conn.close()
+    return render_template('database.html')
+
+@app.route('/search')
+def search():
+    """ search object in the database """
     conn = create_connection(docker=True)
     with conn.cursor() as cur:
         cur.execute("SELECT * FROM kubernetes WHERE kobj='pod';")
         row = cur.fetchone()
-    # close cursor and connection
-    close_cursor(cur,conn)
-    print(row[0])
-    return f"Pod object: {row}"
+    close_cursor(cur, conn)
+    return render_template('search.html', row=row)
 
 @app.route('/')
 def home():
@@ -37,9 +41,14 @@ def home():
 
 @app.route('/submit', methods=['POST'])
 def submit():
+    """ search name object in the database """
     name = request.form['name']
-    # do something with the data
-    return render_template('submit.html', name=name)
+    conn = create_connection(docker=True)
+    with conn.cursor() as cur:
+        cur.execute("SELECT * FROM kubernetes WHERE kobj='pod';")
+        result = cur.fetchone()
+    close_cursor(cur, conn)
+    return render_template('submit.html', name=name, result=result)
 
 if __name__ == '__main__':
     app.run(debug=True)

@@ -9,8 +9,12 @@
 <body>
     <hr>
     <div class="container text-center">
-    <h1>Thank You!</h1>
-    <p>Name: {{ name }}</p>
+    <h1>Results:</h1>
+    <p>Searched for: {{ name }}</p>
+    <!-- iterate through result -->
+    {% for row in result %}
+    <p>Object definition and usage: {{ row }}</p>
+    {% endfor %}
     </div>
 </body>
 </html>
