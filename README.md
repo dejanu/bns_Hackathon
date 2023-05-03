@@ -6,15 +6,18 @@
 
 ## Project Description
 
+* Webapp that allows to search k8s objects definition and usage
+
+## Deployment
+
 * If you want to rename the `app.py` file, e.g. `mv app.py main.py`, you need to update env variable `FLASK_APP` `export FLASK_APP=main.py`
 ```bash
-# default port 5000
+# run app on default port 5000
 flask run --host=0.0.0.0
 ``` 
 
 * Docker setup:
 ```bash
-
 # create env vars
 source db_stuff/setup_db.sh
 
@@ -26,11 +29,10 @@ docker run -p 5000:5000 -e DATABASE_URL=$DATABASE_URL -e DATABASE_USER=$DATABASE
 # start docker compose (currently only database)
 docker-compose -f docker-compose.yml up --remove-orphans
 
-
 # populate database with test data
 ./create_db.py 
 ```
-* Bunyshell sutff:
+## Bunyshell stuff:
 
 - [env_definition](https://documentation.bunnyshell.com/docs/environment-definition)
 
