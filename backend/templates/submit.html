@@ -10,12 +10,10 @@
     <br>
     <div class="container text-center">
     <h1>Results</h1>
-    <hr>
+    <hr class="border border-primary border-3 opacity-75">
     <p> 💡 Object definition and usage for: <b>{{ name }}</b></p>
-    <!-- iterate through result -->
-    {% for row in result %}
-    <p> - {{ row }}</p>
-    {% endfor %}
+    <p> Def: {{ result[1] }} </p>
+    <p> Usage: <code> {{ result[2] }} </code> </p>
     <a href="/"><button type="button" class="btn btn-primary">Back</button></a>
     </div>
 </body>

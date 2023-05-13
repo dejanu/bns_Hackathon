@@ -19,14 +19,16 @@ flask run --host=0.0.0.0
 * Docker setup:
 ```bash
 # create env vars
-source db_stuff/setup_db.sh
+source backend/db_stuff/setup_db.sh
 
+# build image and start flask app as container
 docker build -t dejanualex/bns_hackathon .
-
-# start flask app as docker container
 docker run -p 5000:5000 -e DATABASE_URL=$DATABASE_URL -e DATABASE_USER=$DATABASE_USER -e DATABASE_PASSWORD=$DATABASE_PASSWORD dejanualex/bns_hackathon
 
-# start docker compose (currently only database)
+# stop containers and remove images
+./cleanup_images.sh
+
+# start docker compose
 docker-compose -f docker-compose.yml up --remove-orphans
 
 # populate database with test data
