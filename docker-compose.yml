@@ -17,7 +17,7 @@ services:
     depends_on:
       - db
   db:
-    image: postgres
+    image: postgres:alpine3.18
     container_name: postgres_db
     restart: always
     user: postgres
