@@ -9,7 +9,8 @@ app = Flask(__name__)
 app.config["DEBUG"] = True
 
 # connect to postgres database psycopg2 PostgreSQL adapter
-app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')
+#app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')
+app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://admin:ThisIsSecret@localhost:5432/testdatabase"
 # create the extension
 db = SQLAlchemy()
 # initialize the app with the extension
