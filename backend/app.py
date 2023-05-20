@@ -9,20 +9,19 @@ app = Flask(__name__)
 app.config["DEBUG"] = True
 
 # connect to postgres database psycopg2 PostgreSQL adapter
-#app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')
-app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://admin:ThisIsSecret@localhost:5432/testdatabase"
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')
+
 # create the extension
 db = SQLAlchemy()
 # initialize the app with the extension
 db.init_app(app)
 
-# create connection and instert data to the database
-conn = create_connection(docker=True)
-run_script('db_stuff/create_table.sql', conn)
-conn.close()
-
 @app.route('/')
 def home():
+    # create connection and instert data to the database
+    conn = create_connection(docker=True)
+    run_script('db_stuff/create_table.sql', conn)
+    conn.close()
     return render_template('form.html')
 
 @app.route('/submit', methods=['POST'])
