@@ -6,7 +6,7 @@ import os
 def create_connection(docker=False):
     if docker:
         # container name from docker-compose.yml
-        host = "postgres_db"
+        host = "postgres-db"
     else:
         host = "localhost"
     # create connection to connect to database

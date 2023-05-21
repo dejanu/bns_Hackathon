@@ -21,7 +21,7 @@ db.init_app(app)
 @app.route('/')
 def home():
     connection = psycopg2.connect(
-        host = "postgres_db",
+        host = "postgres-db",
         database = os.environ.get('DATABASE_NAME'),
         user = os.environ.get('DATABASE_USER'),
         password = os.environ.get('DATABASE_PASSWORD')
@@ -42,7 +42,7 @@ def submit():
     db_query = "SELECT * FROM kubernetes WHERE kobj='{}';".format(name)
     
     connection = psycopg2.connect(
-        host = "postgres_db",
+        host = "postgres-db",
         database = os.environ.get('DATABASE_NAME'),
         user = os.environ.get('DATABASE_USER'),
         password = os.environ.get('DATABASE_PASSWORD')
