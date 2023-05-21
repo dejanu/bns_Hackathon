@@ -18,6 +18,7 @@ services:
   db:
     image: postgres
     container_name: postgres_db
+    hostname: postgres_db
     restart: always
     user: postgres
     environment:

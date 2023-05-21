@@ -21,7 +21,7 @@ db.init_app(app)
 @app.route('/')
 def home():
     connection = psycopg2.connect(
-        host = "localhost",
+        host = "postgres_db",
         database = os.environ.get('DATABASE_NAME'),
         user = os.environ.get('DATABASE_USER'),
         password = os.environ.get('DATABASE_PASSWORD')
