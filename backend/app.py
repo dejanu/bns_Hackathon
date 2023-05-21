@@ -18,10 +18,21 @@ db = SQLAlchemy()
 # initialize the app with the extension
 db.init_app(app)
 
-
-
 @app.route('/')
 def home():
+    connection = psycopg2.connect(
+        host = "postgres_db",
+        database = os.environ.get('DATABASE_NAME'),
+        user = os.environ.get('DATABASE_USER'),
+        password = os.environ.get('DATABASE_PASSWORD')
+    )
+    with open ('db_stuff/create_table.sql', "r") as script_file:
+        sql_script = script_file.read()
+    with connection.cursor() as cur:
+        cur.execute(sql_script)
+        connection.commit()
+        cur.close()
+    connection.close()
     return render_template('form.html')
 
 @app.route('/submit', methods=['POST'])
