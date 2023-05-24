@@ -36,6 +36,8 @@ docker-compose -f docker-compose.yml up --remove-orphans
 ```
 ## Bunyshell stuff:
 
+* Each Environment has all its Docker-compose Components deployed into its own Kubernetes namespace, isolated from other environments.
+
 - [env_definition](https://documentation.bunnyshell.com/docs/environment-definition)
 
 - [env_deployment](https://documentation.bunnyshell.com/docs/quickstart-dockercompose-deploy-the-environment)

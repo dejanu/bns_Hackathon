@@ -12,19 +12,19 @@ services:
       - DATABASE_NAME=${DATABASE_NAME}
       - DATABASE_USER=${DATABASE_USER}
       - DATABASE_PASSWORD=${DATABASE_PASSWORD}
-    depends_on:
-      - db
-    links:
-      - db:db
-    networks:
-      - appnetwork
+    # depends_on:
+    #   - db
+    # links:
+    #   - db:db
+    # networks:
+    #   - appnetwork
 
   db:
     image: postgres
     container_name: postgres-db
     hostname: postgres-db
-    networks:
-      - appnetwork
+    # networks:
+    #   - appnetwork
     restart: always
     user: postgres
     environment:
@@ -34,6 +34,6 @@ services:
     expose:
       - 5432
 
-networks:
-  appnetwork:
-    driver: bridge
+# networks:
+#   appnetwork:
+#     driver: bridge
