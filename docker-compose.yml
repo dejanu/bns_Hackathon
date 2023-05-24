@@ -12,17 +12,17 @@ services:
       - DATABASE_NAME=${DATABASE_NAME}
       - DATABASE_USER=${DATABASE_USER}
       - DATABASE_PASSWORD=${DATABASE_PASSWORD}
-    # depends_on:
-    #   - db
+    depends_on:
+      - db
     # links:
     #   - db:db
     # networks:
     #   - appnetwork
 
   db:
-    image: postgres
-    container_name: postgres-db
-    hostname: postgres-db
+    image: postgres:latest
+    container_name: postgresdb
+    # hostname: postgres-db
     # networks:
     #   - appnetwork
     restart: always
@@ -32,7 +32,7 @@ services:
       POSTGRES_USER: ${DATABASE_USER}
       POSTGRES_DB: ${DATABASE_NAME}
     expose:
-      - 5432
+      - "5432"
 
 # networks:
 #   appnetwork:

@@ -20,8 +20,12 @@ db.init_app(app)
 
 @app.route('/')
 def home():
+    return render_template('form.html')
+
+@app.route('/database')
+def populate_db():
     connection = psycopg2.connect(
-        host = "postgres-db",
+        host = "postgresdb",
         database = os.environ.get('DATABASE_NAME'),
         user = os.environ.get('DATABASE_USER'),
         password = os.environ.get('DATABASE_PASSWORD')
@@ -35,6 +39,7 @@ def home():
     connection.close()
     return render_template('form.html')
 
+
 @app.route('/submit', methods=['POST'])
 def submit():
     """ search name object in the database """
@@ -42,7 +47,7 @@ def submit():
     db_query = "SELECT * FROM kubernetes WHERE kobj='{}';".format(name)
     
     connection = psycopg2.connect(
-        host = "postgres-db",
+        host = "postgresdb",
         database = os.environ.get('DATABASE_NAME'),
         user = os.environ.get('DATABASE_USER'),
         password = os.environ.get('DATABASE_PASSWORD')
