@@ -16,4 +16,4 @@ ENV FLASK_RUN_HOST=0.0.0.0
 # Expose port 5000
 EXPOSE 5000
 
-CMD [ "python3", "-m" , "flask", "run", "--host=0.0.0.0"]
+CMD ["python3", "-m" , "flask", "run", "--host=0.0.0.0"]

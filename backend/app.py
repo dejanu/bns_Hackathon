@@ -21,8 +21,25 @@ db.init_app(app)
 
 @app.route('/')
 def populate_db():
+    """ populate database with test data """
+    # create connection to connect to database
+    connection = psycopg2.connect(
+        host = "db",
+        database = os.environ.get('DATABASE_NAME'),
+        user = os.environ.get('DATABASE_USER'),
+        password = os.environ.get('DATABASE_PASSWORD')
+    )
+    # open a cursor to perform database operations
+    cursor = connection.cursor()
+    # execute the sql query
+    with open (f"{os.getcwd()}/db_stuff/create_table.sql", "r") as script_file:
+        sql_script = script_file.read()
+        cursor.execute(sql_script)
+        connection.commit()
+    # close the cursor and connection
+    cursor.close()
+    connection.close()
     return render_template('form.html')
-
 
 @app.route('/submit', methods=['POST'])
 def submit():
