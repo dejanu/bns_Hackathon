@@ -16,7 +16,7 @@ services:
       - db
 
   db:
-    image: postgres:latest
+    image: postgres:15.3
     container_name: postgresdb
     restart: always
     user: postgres
