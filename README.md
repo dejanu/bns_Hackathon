@@ -29,10 +29,7 @@ docker run -p 5000:5000 -e DATABASE_URL=$DATABASE_URL -e DATABASE_USER=$DATABASE
 ./cleanup_images.sh
 
 # start docker compose
-docker-compose -f docker-compose.yml up --remove-orphans
-
-# populate database with test data
-./create_db.py 
+docker-compose -f docker-compose.yml up --remove-orphans --build
 ```
 ## Bunyshell stuff:
 

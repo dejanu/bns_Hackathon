@@ -18,18 +18,24 @@ db = SQLAlchemy()
 # initialize the app with the extension
 db.init_app(app)
 
+def create_connection():
+    """ create a database connection to a PostgreSQL database """
+    connection = None
+    try:
+        connection = psycopg2.connect(
+            host = "db",
+            database = os.environ.get('DATABASE_NAME'),
+            user = os.environ.get('DATABASE_USER'),
+            password = os.environ.get('DATABASE_PASSWORD')
+        )
+    except (Exception, psycopg2.DatabaseError) as error:
+        print(error)
+    return connection
 
 @app.route('/')
 def populate_db():
     """ populate database with test data """
-    # create connection to connect to database
-    connection = psycopg2.connect(
-        host = "db",
-        database = os.environ.get('DATABASE_NAME'),
-        user = os.environ.get('DATABASE_USER'),
-        password = os.environ.get('DATABASE_PASSWORD')
-    )
-    # open a cursor to perform database operations
+    connection = create_connection()
     cursor = connection.cursor()
     # execute the sql query
     with open (f"{os.getcwd()}/db_stuff/create_table.sql", "r") as script_file:
@@ -44,15 +50,10 @@ def populate_db():
 @app.route('/submit', methods=['POST'])
 def submit():
     """ search name object in the database """
-    name = request.form['name']
+    name = request.form['name'].lower()
     db_query = "SELECT * FROM kubernetes WHERE kobj='{}';".format(name)
     
-    connection = psycopg2.connect(
-        host = "db",
-        database = os.environ.get('DATABASE_NAME'),
-        user = os.environ.get('DATABASE_USER'),
-        password = os.environ.get('DATABASE_PASSWORD')
-    )
+    connection = create_connection()
     with connection.cursor() as cur:
         cur.execute(db_query)
         result = cur.fetchone()
