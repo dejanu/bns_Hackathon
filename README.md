@@ -25,18 +25,16 @@ source backend/db_stuff/setup_db.sh
 docker build -t dejanualex/bns_hackathon .
 docker run -p 5000:5000 -e DATABASE_URL=$DATABASE_URL -e DATABASE_USER=$DATABASE_USER -e DATABASE_PASSWORD=$DATABASE_PASSWORD dejanualex/bns_hackathon
 
-# stop containers and remove images
-./cleanup_images.sh
-
 # start docker compose
 docker-compose -f docker-compose.yml up --remove-orphans --build
 ```
-## Bunyshell stuff:
+## Bunyshell:
 
-* Each Environment has all its Docker-compose Components deployed into its own Kubernetes namespace, isolated from other environments.
+* Bunnyshell  [environment definition](https://documentation.bunnyshell.com/docs/environment-definition)
 
-- [env_definition](https://documentation.bunnyshell.com/docs/environment-definition)
+* The Environment has all its Docker-compose Components deployed into its own Kubernetes namespace, isolated from other environments.
 
-- [env_deployment](https://documentation.bunnyshell.com/docs/quickstart-dockercompose-deploy-the-environment)
+* A template contains the full definition of an environment - resource allocations, the services and jobs needed to run your applications with predetermined configuration values while still allowing you to customize the configuration.
 
-- [docker compose documentation](https://documentation.bunnyshell.com/docs/components-docker-compose)
+* The template for the environment can be found [here](https://github.com/dejanu/bns_Hackathon/blob/main/.bunnyshell/templates/flask-postgres/README.md)
+

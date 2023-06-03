@@ -2,7 +2,7 @@
 
 This template is a boilerplate for creating a new environment based on a stack using Flask backend and PostgreSQL database.
 
-The template provides the Bunnyshell configuration composed of 2 Components (backend + database) and a Web application.
+The template provides the Bunnyshell configuration for a Web application composed of two Components (backend + database).
 
 You can extend the template by further adding Components, be them more APIs or other services, such as queues, caches, block storage etc.
 

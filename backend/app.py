@@ -1,21 +1,14 @@
 #!/usr/bin/env python3
-
-import psycopg2
 import os
-
+import psycopg2
 from flask import Flask, render_template, request
 from flask_sqlalchemy import SQLAlchemy
 
-# from db_stuff.create_db import create_connection, close_cursor, run_script
-
 app = Flask(__name__) 
 app.config["DEBUG"] = True
-
-# connect to postgres database psycopg2 PostgreSQL adapter
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')
-# create the extension
-db = SQLAlchemy()
 # initialize the app with the extension
+db = SQLAlchemy()
 db.init_app(app)
 
 def create_connection():
@@ -51,8 +44,7 @@ def populate_db():
 def submit():
     """ search name object in the database """
     name = request.form['name'].lower()
-    db_query = "SELECT * FROM kubernetes WHERE kobj='{}';".format(name)
-    
+    db_query = f"SELECT * FROM kubernetes WHERE kobj='{name}';"
     connection = create_connection()
     with connection.cursor() as cur:
         cur.execute(db_query)
