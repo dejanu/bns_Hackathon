@@ -1,0 +1,48 @@
+kind: Environment
+name: dev
+type: primary
+urlHandle: kubelingo
+environmentVariables:
+    type: hash
+    required: true
+    dbpass: 'bns_secret()'
+    description: DB password
+components:
+    -
+        kind: Application
+        name: backend
+        gitRepo: 'https://github.com/dejanu/bns_Hackathon.git'
+        gitBranch: main
+        gitApplicationPath: backend
+        dockerCompose:
+            build:
+                context: ./backend
+                dockerfile: Dockerfile
+            environment:
+                DATABASE_NAME: testdatabase
+                DATABASE_PASSWORD: '{{ env.vars.dbpass }}'
+                DATABASE_URL: 'postgresql://admin:{{ env.vars.dbpass }}@localhost:5432/testdatabase'
+                DATABASE_USER: admin
+            ports:
+                - '5000:5000'
+            restart: always
+        hosts:
+            -
+                hostname: 'dev-{{ env.base_domain }}'
+                path: /
+                servicePort: 5000
+    -
+        kind: Database
+        name: db
+        gitRepo: 'https://github.com/dejanu/bns_Hackathon.git'
+        gitBranch: main
+        dockerCompose:
+            environment:
+                POSTGRES_DB: testdatabase
+                POSTGRES_PASSWORD: '{{ env.vars.dbpass }}'
+                POSTGRES_USER: admin
+            image: 'postgres:15.3'
+            restart: always
+            user: postgres
+            ports:
+                - '5432:5432'
