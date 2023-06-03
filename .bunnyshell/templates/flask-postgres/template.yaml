@@ -1,0 +1,15 @@
+name: Flask + PostgreSQL
+description: This is a web app that provides a search functionality in a Postgres DB, it's comprised of two components a Flask backend Application and Postgres Database. The Postgres DB **password** is configurable (by default is the value for the password is not set), and declared as a environment variable `dbpass`
+tags:
+   - flask
+   - postgres
+icons: [ 'flask', 'postgres' ]
+stack:
+  packages:
+    - name: Python
+      version: '3.8'
+    - name: Flask
+      version: '2.2.3'
+    - name: PostgreSQL
+      version: '15.3'
+discoverable: true
