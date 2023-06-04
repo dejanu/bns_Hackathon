@@ -26,9 +26,9 @@ SELECT 'statefulset', 'set of pods with consistent identities e.g. Storage, Netw
 WHERE NOT EXISTS (SELECT 1 FROM kubernetes WHERE kobj = 'statefulset');
 
 INSERT INTO kubernetes (kobj, kdef, kcommand)
-SELECT 'persistentvolume ', 'storage in the cluster that has been provisioned by an administrator or dynamically provisioned using Storage Classes', '$ kubectl get pv'
+SELECT 'persistentvolume', 'storage in the cluster that has been provisioned by an administrator or dynamically provisioned using Storage Classes', '$ kubectl get pv'
 WHERE NOT EXISTS (SELECT 1 FROM kubernetes WHERE kobj = 'persistentvolume');
 
 INSERT INTO kubernetes (kobj, kdef, kcommand)
-SELECT 'persistentvolumeclaim  ', 'request for storage by a user, requesting specific size and access mode ReadWriteOnce, ReadOnlyMany or ReadWriteMany', '$ kubectl get pvc'
+SELECT 'persistentvolumeclaim', 'request for storage by a user, requesting specific size and access mode ReadWriteOnce, ReadOnlyMany or ReadWriteMany', '$ kubectl get pvc'
 WHERE NOT EXISTS (SELECT 1 FROM kubernetes WHERE kobj = 'persistentvolumeclaim');
