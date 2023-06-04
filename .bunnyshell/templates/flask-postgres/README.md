@@ -15,4 +15,4 @@ This environment is comprised of 2 components:
 - `backend` for the backend based on Flask
 - `database` for  PostgreSQL database
 
-The Postgres DB **password** is configurable (by default is the value for the password is not set), and declared as a environment variable `dbpass` 
+The Postgres DB **password** is configurable (by default the value for the password is not set), and declared as a environment variable `dbpass` 
