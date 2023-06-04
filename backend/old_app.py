@@ -20,34 +20,38 @@ def create_connection():
             database = os.environ.get('DATABASE_NAME'),
             user = os.environ.get('DATABASE_USER'),
             password = os.environ.get('DATABASE_PASSWORD')
-            )
+        )
     except (Exception, psycopg2.DatabaseError) as error:
         print(error)
     return connection
 
-@app.route('/', methods=['GET', 'POST'])
-def home():
-    """ populate DB and return search result """
+@app.route('/')
+def populate_db():
+    """ populate database with test data """
     connection = create_connection()
     cursor = connection.cursor()
-    # populate DB
+    # execute the sql query
     with open (f"{os.getcwd()}/db_stuff/create_table.sql", "r") as script_file:
         sql_script = script_file.read()
         cursor.execute(sql_script)
         connection.commit()
+    # close the cursor and connection
     cursor.close()
     connection.close()
-    if request.method == 'POST':
-        name = request.form['name'].lower()
-        db_query = f"SELECT * FROM kubernetes WHERE kobj='{name}';"
-        connection = create_connection()
-        with connection.cursor() as cur:
-            cur.execute(db_query)
-            result = cur.fetchone()
-            cur.close()
-            connection.close()
-        return render_template('home.html', name=name, result=result)
-    return render_template('home.html')
+    return render_template('form.html')
+
+@app.route('/submit', methods=['POST'])
+def submit():
+    """ search name object in the database """
+    name = request.form['name'].lower()
+    db_query = f"SELECT * FROM kubernetes WHERE kobj='{name}';"
+    connection = create_connection()
+    with connection.cursor() as cur:
+        cur.execute(db_query)
+        result = cur.fetchone()
+        cur.close()
+    connection.close()
+    return render_template('submit.html', name=name, result=result)
 
 if __name__ == '__main__':
     app.run(debug=True)
